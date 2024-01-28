@@ -1,5 +1,5 @@
-import = ["/home/mateusz/.config/alacritty/themes/themes/breeze.toml"]
+import = ["~/.config/alacritty/themes/themes/github_dark.yaml"]
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
-style = "Regular"
+# style = "Regular"
