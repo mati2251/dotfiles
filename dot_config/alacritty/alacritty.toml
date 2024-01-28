@@ -1,0 +1,5 @@
+import = ["/home/mateusz/.config/alacritty/themes/themes/breeze.toml"]
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
