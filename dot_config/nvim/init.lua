@@ -1,6 +1,5 @@
 require("remap")
-vim.g.dracula_full_special_attrs_support = 0
-
+require("set")
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
