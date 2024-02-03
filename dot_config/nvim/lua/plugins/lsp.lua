@@ -16,6 +16,14 @@ return {
           lsp_zero.default_setup,
         },
       })
+
+      local cmp = require('cmp')
+
+      cmp.setup({
+        mapping = cmp.mapping.preset.insert({
+          ['<Tab>'] = cmp.mapping.confirm({select = false}),
+        })
+      })
     end
   },
   {'neovim/nvim-lspconfig'},

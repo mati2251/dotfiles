@@ -1,5 +1,3 @@
-
-
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
