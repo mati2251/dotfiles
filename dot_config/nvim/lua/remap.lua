@@ -3,7 +3,7 @@ vim.g.mapleader = " "
 -- open directory
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
--- autoindent all file 
+-- autoindent all file
 vim.keymap.set("n", "=", "gg=G<C-o>")
 
 -- visual all file
@@ -26,14 +26,12 @@ vim.keymap.set("n", "yp", "yyp")
 
 -- delete without yank
 vim.keymap.set("n", "d", "\"_d")
-vim.keymap.set("x", "d", "\"_d")
-vim.keymap.set("x", "p", "\"_dP")
+vim.keymap.set("x", "x", "\"_d")
 vim.keymap.set("n", "x", "\"_x")
 
 -- hl search
-vim.api.nvim_set_keymap('n', '<Leader>h', ':set hlsearch!<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<C-h>', ':set hlsearch!<CR>', { noremap = true, silent = true })
 
 -- buffer navigation
--- previous buffer
 vim.keymap.set("n", "<Leader>h", ":bp<CR>")
 vim.keymap.set("n", "<Leader>l", ":bn<CR>")
