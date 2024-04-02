@@ -5,7 +5,8 @@ sudo pacman -S --noconfirm --needed \
   fish \
   alacritty \
   tmux \
-  chezmoi
+  chezmoi \
+  zoxide 
 chezmoi init https://github.com/$GITHUB_USERNAME/dotfiles.git
 # gnome config
 # dracula gtk
