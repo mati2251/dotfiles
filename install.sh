@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 sudo pacman -S --noconfirm --needed \
   git \
   neovim \
@@ -17,9 +17,9 @@ rm -rf gtk-master master.zip
 gsettings set org.gnome.desktop.interface gtk-theme "Dracula"
 gsettings set org.gnome.desktop.wm.preferences theme "Dracula"
 gsettings set org.gnome.shell.extensions.user-theme name "Dracula"
-cp -r ~/.themes/Dracula/gtk-3.0/ ~/.config/gtk-3.0/
-cp -r ~/.themes/Dracula/gtk-2.0/ ~/.config/gtk-2.0/
-cp -r ~/.themes/Dracula/gtk-4.0/ ~/.config/gtk-4.0/
+cp -r ~/.themes/Dracula/gtk-master/gtk-3.0/ ~/.config/gtk-3.0/
+cp -r ~/.themes/Dracula/gtk-master/gtk-2.0/ ~/.config/gtk-2.0/
+cp -r ~/.themes/Dracula/gtk-master/gtk-4.0/ ~/.config/gtk-4.0/
 
 # dracula icons
 wget 'https://github.com/matheuuus/dracula-icons/archive/refs/heads/main.zip'
