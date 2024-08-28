@@ -7,4 +7,7 @@ end
 
 set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin /home/mateusz/.ghcup/bin $PATH # ghcup-env
 
-zoxide init fish --cmd cd | source
+zoxide init fish --cmd zd | source
+
+bind yy fish_clipboard_copy
+bind pp fish_clipboard_paste
