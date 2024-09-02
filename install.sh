@@ -6,12 +6,12 @@ sudo pacman -S --noconfirm --needed \
   alacritty \
   tmux \
   chezmoi \
-  zoxide 
-chezmoi init https://github.com/$GITHUB_USERNAME/dotfiles.git
+  fisher 
 # gnome config
 # dracula gtk
 wget 'https://github.com/dracula/gtk/archive/master.zip'
 unzip master.zip
+mkdir -p ~/.themes/Dracula
 cp -r gtk-master/ ~/.themes/Dracula
 rm -rf gtk-master master.zip
 gsettings set org.gnome.desktop.interface gtk-theme "Dracula"
@@ -37,3 +37,5 @@ gsettings set org.gnome.desktop.peripherals.touchpad click-method 'fingers'
 
 # workspaces
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
+
+fisher update
