@@ -4,6 +4,6 @@ return {
     "rbgrouleff/bclose.vim"
   },
   config = function()
-    vim.keymap.set("n", "<C-r>", ":Ranger<cr>", {})
+    vim.keymap.set("n", "<Leader>ra", ":Ranger<cr>", {})
   end
 }
