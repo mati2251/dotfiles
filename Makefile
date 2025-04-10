@@ -1,24 +1,25 @@
-all: gnome fish tmux alacritty neovim
+INSTALL_CMD:=sudo pacman -S --noconfirm
+all: /usr/bin/stow gnome fish tmux alacritty neovim
 
-minimal: fish tmux neovim
+minimal: /usr/bin/stow fish tmux neovim-minimal
 
 /usr/bin/stow:
-	pacman -S --noconfirm stow
+	$(INSTALL_CMD) stow
 
 /usr/bin/git:
-	pacman -S --noconfirm git
+	$(INSTALL_CMD) git
 
 /usr/bin/nvim:
-	pacman -S --noconfirm neovim
+	$(INSTALL_CMD) neovim
 
 /usr/bin/tmux:
-	pacman -S --noconfirm tmux
+	$(INSTALL_CMD) tmux
 
 /usr/bin/alacritty:
-	pacman -S --noconfirm alacritty
+	$(INSTALL_CMD) alacritty
 
 /usr/bin/fish:
-	pacman -S --noconfirm fish
+	$(INSTALL_CMD) fish
 
 ~/.themes/Dracula:
 	wget 'https://github.com/dracula/gtk/archive/master.zip'
@@ -65,13 +66,15 @@ alacritty: /usr/bin/alacritty
 	stow alacritty
 	@echo "Alacritty configuration applied."
 
-NEOVIM_ARGS :=
-
 .PHONY: neovim
 neovim: /usr/bin/nvim
-	stow nvim $(NEOVIM_ARGS)
+	stow nvim
 	@echo "Neovim configuration applied."
 
 .PHONY: neovim-minimal
-neovim-minimal: NEOVIM_ARGS := --ignore=.+dap.lua --ignore=.+lsp.lua --ignore=.+copilot.lua --ignore=.+telescope.lua
+neovim-minimal:
 neovim-minimal: neovim
+	unlink ~/.config/nvim/lua/plugins/dap.lua
+	unlink ~/.config/nvim/lua/plugins/lsp.lua
+	unlink ~/.config/nvim/lua/plugins/copilot.lua
+	unlink ~/.config/nvim/lua/plugins/telescope.lua
