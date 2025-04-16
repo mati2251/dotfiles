@@ -1,5 +1,5 @@
 INSTALL_CMD:=sudo pacman -S --noconfirm
-STOW_CMD:=stow -t ~
+STOW_CMD:=stow -t ~ --dotfiles
 
 all: /usr/bin/stow gnome fish tmux alacritty neovim
 
