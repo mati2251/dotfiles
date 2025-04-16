@@ -1,4 +1,6 @@
 INSTALL_CMD:=sudo pacman -S --noconfirm
+STOW_CMD:=stow -t ~
+
 all: /usr/bin/stow gnome fish tmux alacritty neovim
 
 minimal: /usr/bin/stow fish tmux neovim-minimal
@@ -52,23 +54,23 @@ gnome: ~/.themes/Dracula ~/.icons/dracula-icons-main
 
 .PHONY: fish
 fish: /usr/bin/fish
-	stow fish
+	$(STOW_CMD) fish
 	chsh -s /usr/bin/fish
 	@echo "Fish shell configuration applied."
 
 .PHONY: tmux
 tmux: /usr/bin/tmux
-	stow tmux
+	$(STOW_CMD) tmux
 	@echo "Tmux configuration applied."
 
 .PHONY: alacritty
 alacritty: /usr/bin/alacritty
-	stow alacritty
+	$(STOW_CMD) alacritty
 	@echo "Alacritty configuration applied."
 
 .PHONY: neovim
 neovim: /usr/bin/nvim
-	stow nvim
+	$(STOW_CMD) nvim
 	@echo "Neovim configuration applied."
 
 .PHONY: neovim-minimal
