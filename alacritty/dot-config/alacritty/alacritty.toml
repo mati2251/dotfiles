@@ -1,4 +1,6 @@
-import = ["~/.config/alacritty/dracula.toml"]
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
+
+[general]
+import = ["~/.config/alacritty/dracula.toml"]
