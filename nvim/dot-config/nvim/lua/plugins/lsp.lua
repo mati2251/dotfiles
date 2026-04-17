@@ -1,66 +1,57 @@
 return {
+  { 'hrsh7th/cmp-nvim-lsp' },
+  { 'L3MON4D3/LuaSnip' },
   {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v3.x',
+    'hrsh7th/nvim-cmp',
     config = function()
-      local lsp_zero = require('lsp-zero')
-      local lspconfig = require('lspconfig')
-
-      lsp_zero.extend_lspconfig()
-      lsp_zero.on_attach(function(_, _)
-        vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-        vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-        vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-        vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-        vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-        vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-        vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-        vim.keymap.set('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-        vim.keymap.set('n', '<leader>f', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-        vim.keymap.set('n', 'ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
-
-        vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
-        vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', opts)
-        vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', opts)
-      end)
-
       local cmp = require('cmp')
-
-      -- clangd config
-      lspconfig.clangd.setup{}
-      -- gopls config
-      lspconfig.gopls.setup{}
-      -- pyright config
-      lspconfig.pyright.setup{}
-      -- ruff
-      lspconfig.ruff.setup{}
-
       cmp.setup({
         preselect = 'item',
-        completion = {
-          completeopt = 'menu,menuone,noinsert'
-        },
+        completion = { completeopt = 'menu,menuone,noinsert' },
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+          { name = 'luasnip' },
+        }),
         mapping = cmp.mapping.preset.insert({
           ['<CR>'] = cmp.mapping.confirm({ select = false }),
           ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-        })
+        }),
       })
-    end
+    end,
   },
-  { 'neovim/nvim-lspconfig' },
-  { 'hrsh7th/cmp-nvim-lsp' },
-  { 'hrsh7th/nvim-cmp' },
-  { 'L3MON4D3/LuaSnip' },
   {
-    "j-hui/fidget.nvim",
-    opts = {
-      notification = {
-        window = {
-          winblend = 0,
-        }
-      }
-    }
+    'j-hui/fidget.nvim',
+    opts = { notification = { window = { winblend = 0 } } },
   },
-  { 'numToStr/Comment.nvim', opts = {} }
+  { 'numToStr/Comment.nvim', opts = {} },
+  {
+    'neovim/nvim-lspconfig',
+    config = function()
+      vim.lsp.config('*', {
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+      })
+
+      vim.api.nvim_create_autocmd('LspAttach', {
+        callback = function(event)
+          local opts = { buffer = event.buf }
+          vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+          vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+          vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+          vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, opts)
+          vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+          vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
+          vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+          vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format({ async = true }) end, opts)
+          vim.keymap.set('n', 'ca', vim.lsp.buf.code_action, opts)
+          vim.keymap.set('n', 'gl', vim.diagnostic.open_float, opts)
+          vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+          vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+        end,
+      })
+
+      vim.lsp.enable({ 'clangd', 'gopls', 'pyright', 'ruff' })
+    end,
+  },
 }
