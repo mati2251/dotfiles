@@ -1,12 +1,12 @@
-
 -- numbers of line 
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
 -- tab settings
-vim.cmd("set expandtab")
-vim.cmd("set softtabstop=2")
-vim.cmd("set shiftwidth=2")
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
 
 -- undo settings
 vim.opt.swapfile = false
@@ -26,3 +26,8 @@ vim.opt.scrolloff = 8
 vim.opt.updatetime = 50
 
 vim.o.clipboard = 'unnamedplus'
+
+vim.opt.completeopt = { "menu", "menuone", "noselect", "popup" }
+
+vim.o.winborder = "rounded"
+vim.o.pumborder = "rounded"

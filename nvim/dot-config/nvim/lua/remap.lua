@@ -28,10 +28,3 @@ vim.keymap.set("n", "yp", "yyp")
 vim.keymap.set("n", "d", "\"_d")
 vim.keymap.set("x", "x", "\"_d")
 vim.keymap.set("n", "x", "\"_x")
-
--- hl search
-vim.api.nvim_set_keymap('n', '<C-h>', ':set hlsearch!<CR>', { noremap = true, silent = true })
-
--- buffer navigation
-vim.keymap.set("n", "<Leader>h", ":bp<CR>")
-vim.keymap.set("n", "<Leader>l", ":bn<CR>")
