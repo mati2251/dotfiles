@@ -8,7 +8,20 @@ return {
 
   config = function()
     local builtin = require('telescope.builtin')
-    vim.keymap.set('n', '<leader>sf', builtin.find_files, {})
+    vim.keymap.set('n', '<leader>sf', function()
+        builtin.find_files({
+          find_command = {
+            'rg',
+            '--files',
+            '--hidden',
+            '--no-ignore-vcs',
+            '--no-ignore-global',
+            '--no-ignore-exclude',
+            '--glob', '!.git',
+            '--color', 'never',
+          },
+        })
+    end, {})
     vim.keymap.set('n', '<leader>sg', builtin.live_grep, {})
     vim.keymap.set('n', '<leader>sr', builtin.git_files, {})
     vim.keymap.set('n', '<leader>sb', builtin.buffers, {})
