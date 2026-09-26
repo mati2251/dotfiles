@@ -1,15 +1,4 @@
 #!/usr/bin/env bash
-# Instaluje parsery treesittera i ich zapytania bez nvim-treesitter jako pluginu.
-#
-# Parsery ida do $XDG_DATA_HOME/nvim/site/parser/<lang>.so, zapytania do
-# .../site/queries/<lang>/. Oba katalogi sa na 'runtimepath', wiec Neovim
-# znajduje je sam (:h treesitter-parsers).
-#
-# Wersje gramatyk sa przypiete do tych samych commitow, ktorych uzywa
-# nvim-treesitter - dzieki temu zapytania pasuja do drzewa skladniowego.
-# Odswiezenie wersji: lua/nvim-treesitter/parsers.lua na gałęzi main.
-#
-# Uzycie: ./install-parsers.sh [lang...]   (bez argumentow: wszystkie)
 
 set -euo pipefail
 
@@ -17,11 +6,11 @@ SITE="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site"
 NTS_REF="main"
 QUERY_FILES=(highlights.scm injections.scm folds.scm locals.scm)
 
-# lang -> "url revision"
 declare -A GRAMMARS=(
     [go]="https://github.com/tree-sitter/tree-sitter-go 2346a3ab1bb3857b48b29d779a1ef9799a248cd7"
     [python]="https://github.com/tree-sitter/tree-sitter-python v0.25.0"
     [bash]="https://github.com/tree-sitter/tree-sitter-bash a06c2e4415e9bc0346c6b86d401879ffb44058f7"
+    [nix]="https://github.com/nix-community/tree-sitter-nix a2cd7f4011c6e5830c0c9af5aa35441b3ddd5fba"
 )
 
 langs=("$@")
@@ -49,8 +38,6 @@ for lang in "${langs[@]}"; do
     git -C "$src" fetch -q --depth 1 origin "$rev"
     git -C "$src" checkout -q FETCH_HEAD
 
-    # gramatyki maja wygenerowany src/parser.c w repo, tree-sitter CLI nie jest
-    # potrzebny. Czesc ma dodatkowy zewnetrzny skaner (C lub C++).
     sources=("$src/src/parser.c")
     compiler=cc
     if [ -f "$src/src/scanner.c" ]; then
@@ -76,4 +63,4 @@ for lang in "${langs[@]}"; do
 done
 
 echo
-echo "Gotowe. Sprawdz w Neovimie: :checkhealth vim.treesitter"
+echo "Done! Installed parsers for: ${langs[*]}"
